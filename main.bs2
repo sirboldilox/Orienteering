@@ -1,11 +1,11 @@
 '-----[ Title ]----------------------------------------------------------------------------------------
-' Robot controller program 
+' Robot controller program
 '
 ' PIN Configuration
 '
-' P0-7: 8 bit command from ATtiny 
+' P0-7: 8 bit command from ATtiny
 ' P8  : read command flag
-' 
+'
 ' P12 : Servo
 ' P13 : Servo
 '
@@ -33,7 +33,8 @@ LOOP
 
 ' Readin
 '
-' Reads the input pins to memory 
+' Reads the input pins to memory and executes
+' the necessary command.
 '
 Readin:
   RETURN

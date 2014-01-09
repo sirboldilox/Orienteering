@@ -3,7 +3,7 @@
  *  Chip: Atmel ATtiny44
  *  For help: www.avr-tutorials.com
  */
- 
+
 // Headder for port I/O
 #include <avr/io.h>
 #include <avr/delay.h>
@@ -11,7 +11,7 @@
 int main()
 {
 	DDRB = 0x00;		//configure portB as output
- 
+
 	while(1)
 	{
 		PORTB = 0x01;
@@ -22,4 +22,4 @@ int main()
 	return 0;
 }
 
- 
+

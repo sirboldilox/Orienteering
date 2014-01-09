@@ -30,22 +30,22 @@ void transmitt();
 
 int main()
 {
-	DDRA = 0xFF;		// portA -> input
-	DDRB = 0x0;		// portB -> output
+    DDRA = 0xFF;        // portA -> input
+    DDRB = 0x0;         // portB -> output
 
-	setupADC();
-	
-	while(1)
-	{
-		runADC();
-	
-		if(checkValues())
-		{
-		    encode();
-			transmitt();
-		}
-	}	
-	return 0;
+    setupADC();
+
+    while(1)
+    {
+        runADC();
+
+        if(checkValues())
+        {
+            encode();
+            transmitt();
+        }
+    }
+    return 0;
 }
 
 /*
@@ -62,7 +62,7 @@ void setupADC()
  *  runADC
  *
  *  Starts the ADC to read inputs from the 3 sliders.
- *  
+ *
  */
 void runADC()
 {
@@ -72,7 +72,7 @@ void runADC()
 /*
  *  checkValues
  *
- *  Checks if the values from the ADC are different to the 
+ *  Checks if the values from the ADC are different to the
  *  previous ones, to see if a slider has been changed.
  *
  *  Returns:
@@ -87,7 +87,7 @@ int checkValues()
 /*
  *  encode
  *
- *  Generates the binary number to be transmitted from the ADC 
+ *  Generates the binary number to be transmitted from the ADC
  *  values.
  */
 void encode()
@@ -104,4 +104,3 @@ void transmitt()
 {
     return;
 }
-

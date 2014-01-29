@@ -6,37 +6,13 @@ Engineering Project Management, group task code
 Languages: Parallax PBASIC, C
 
 
-## Controller Notes:
+The Task:
 
-ADCSRA set to 10001111
-
-Bit: [7] ADC Enable
-     [6] ADC start
-     [5] ADC auto trigger	
-     [4] ADC interupt flag
-     [3] ADC interupt enable
-     [2:0] ADC clock scaler
-
-Enabled, will trigger interupt and scaled by Clock/128.
+Design and implement a meens to remotely control a Parallex boe-bot to transverse an
+unseen obstacle course. At the half way point in the course the robot must collect a
+tocken decided by the group and carry it till the end of the course where it must be
+released. The controller must be built from scratch.
 
 
-ADCSRA set to 00010000
-
-Bit: [7] Bipolar Mode
-     [6] Comparator enable
-     [5] Reserved	
-     [4] Left Adjust
-     [3] Reserved
-     [2:0] Auto trigger source
-
-Set to default unipolar mode with left shift enabled for 8bit resolution.
-
-
-DIDR0 set to 00000111
-
-Bit [7:0] disables corresponding input bit on port A for digital signals
-
-Disabled PortA[0:2] for 3 analogue inputs from sliders
-
-
-
+Code is split into testing and source. Working testing code is to be pushed to the
+testing folder and code for the finalised solution pushed to the source foler.

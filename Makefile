@@ -58,7 +58,7 @@ LIBS           =
 
 # You should not have to change anything below here.
 
-BIN            = ../avr8-gnu-toolchain-linux/bin/
+BIN            = ./Build/avr8-gnu-toolchain-linux/bin/
 CC             = $(BIN)avr-gcc
 
 # Override is only needed by avr-lib build system.
@@ -78,7 +78,7 @@ $(PRG).elf: $(OBJ)
 main.o: main.c 
 
 clean:
-	rm -rf *.o $(PRG).elf *.eps *.png *.pdf *.bak 
+	rm -rf *.o $(PRG).elf *.eps *.png *.pdf *.bak *~
 	rm -rf *.lst *.map $(EXTRA_CLEAN_FILES)
 
 lst:  $(PRG).lst

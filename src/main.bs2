@@ -1,0 +1,80 @@
+'-----[ Title ]----------------------------------------------------------------------------------------
+' Robot controller program
+'
+' PIN Configuration
+'
+' P0-7: 8 bit command from ATtiny
+' P8  : read command flag
+'
+' P12 : Servo
+' P13 : Servo
+'
+
+' {$STAMP BS2}                           'Stamp directive
+' {$PBASIC 2.5}                          'PBASIC directive
+
+DEBUG "Program Running !"
+
+'-----[ Variables ]------------------------------------------------------------------------------------
+
+pulseCount      VAR     Byte             'FOR...NEXT loop counter.
+
+'-----[ Initialization ]-------------------------------------------------------------------------------
+
+FREQOUT 4, 2000, 3000                    'Signal program start/reset.
+
+'-----[ Main Routine ]---------------------------------------------------------------------------------
+
+DO
+  GOSUB Readin
+LOOP
+
+'-----[ Subroutines ]----------------------------------------------------------------------------------
+
+' Readin
+'
+' Reads the input pins to memory and executes
+' the necessary command.
+'
+Readin:
+  RETURN
+
+' Move
+'
+' Moves the servos based on the readin command string
+'
+Move:
+  RETURN
+
+
+' OLD for reference
+
+Forward_Pulse:                           'Send a single forward pulse
+  PULSOUT 13, 850
+  PULSOUT 12, 650
+  PAUSE 20
+  RETURN
+
+Turn_left:                               'Left turn, about 90-degrees
+  FOR pulseCount = 0 TO 20
+    PULSOUT 13, 650
+    PULSOUT 12, 650
+    PAUSE 20
+  NEXT
+  RETURN
+
+Turn_right:                              'Right turn, about 90-degrees
+  FOR pulseCount = 0 TO 20
+    PULSOUT 13, 850
+    PULSOUT 12, 850
+    PAUSE 20
+  NEXT
+  RETURN
+
+Back_up:                                 'Back up
+  FOR pulseCount = 0 TO 40
+    PULSOUT 13, 650
+    PULSOUT 12, 850
+    PAUSE 20
+  NEXT
+  RETURN

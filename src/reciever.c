@@ -21,11 +21,11 @@
 #define MOTORDIR  1
 
 // Define simple functions
-#define MotorHigh() PORTA =|  ( 1 << MOTOREN )
-#define MotorLow()  PORTA =& ~( 1 << MOTOREN )
+#define MotorHigh() { PORTA |=  ( 1 << MOTOREN ); }
+#define MotorLow()  { PORTA &= ~( 1 << MOTOREN ); }
 
-#define MotorClck()     PORTA =|  ( 1 << MOTORDIR )
-#define MotorAnticlck() PORTA =& ~( 1 << MOTORDIR )
+#define MotorClck()     { PORTA |=  ( 1 << MOTORDIR ); }
+#define MotorAntiClck() { PORTA &= ~( 1 << MOTORDIR ); }
 
 // Headder for port I/O
 #include <avr/io.h>
@@ -34,50 +34,54 @@
 
 // Prototypes
 void waitForSignal();
-void checkBit();
+char checkBit(char,char);
 
 // Signal read in.
-unsigned char signal[4];
+char signal[4];
 
 int main()
 {
-    unsigned char i=0;
-
     DDRA = 0x00;        // portA -> output
     DDRB = 0xF;         // portB -> input
 
     // Main program cycle
     while(1)
     {
-	// Wait for an input signal on PortB
+        char i; // Loop counter
+
+        // Wait for an input signal on PortB
         waitForSignal();
-	signal[i] = PINB;
+        signal[i] = PINB;
 
-	// Read data
-	for(unsigned char i=1;i<3;i++)
-	{
-	    waitForSignal();
-	    signal[i] = PINB;
-	}
-
-	// Reset output
-	PORTA = 0x00;
-
-	// Decode data
-	// Decode Motor
-	if(checkBit(signal[0],2))
-    	{
-	    if(checkBit(signal[0],0))
-	        MotorClck();
-            else
-	        MotorAntiClck();
-
-            MotorHigh();
+        // Read data
+        for(i=1;i<3;i++)
+        {
+            waitForSignal();
+            signal[i] = PINB;
         }
-	else
-	    MotorLow();
 
-       /* Decode and setup Servos
+        // Reset output
+        PORTA = 0x00;
+
+        // Decode data
+        // Decode Motor
+        if(checkBit(signal[0],2))
+    	{
+            if(checkBit(signal[0],0))
+	            MotorClck()
+            else
+    	        MotorAntiClck()
+    	        
+            // Enable Motor
+            MotorHigh()
+        }
+    	else
+    	{
+    	    // Disable Motor
+    	    MotorLow()
+        }
+        
+   /* Decode and setup Servos
 	*
 	*  Input signal byte must first have leading 1 removed
 	*	0x1010 => 0x0010	& with 0111 [ Dec 7 ]
@@ -87,12 +91,13 @@ int main()
 	*	    ^^^		<-- Left shift by 7
 	*	       ^^^      <-- Left shift by 2
 	*/
+        signal[1] &= 0x07;
+        signal[2] &= 0x07;
 
-        signal[1] =& 0x07;
-        signal[2] =& 0x07;
-
-	PORTA =| ( signal[1] << 2 );
-	PORTA =| ( signal[2] << 5 );
+	    PORTA |= ( signal[1] << 2 );
+	    PORTA |= ( signal[2] << 5 ); 
+	    
+	    // End of transmission to boebot
     }
     return 0;
 }
